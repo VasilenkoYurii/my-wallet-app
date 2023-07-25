@@ -52,7 +52,7 @@ export const ConnectButton = styled.button`
   text-align: center;
   text-decoration: none;
   user-select: none;
-  max-width: 150px;
+  max-width: 160px;
   transition-duration: 500ms;
   transition-property: all;
 
@@ -60,4 +60,26 @@ export const ConnectButton = styled.button`
     background-color: #fff;
     box-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff;
   }
+`;
+
+export const ConnectedBox = styled.div`
+  margin-right: 20px;
+
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+
+  display: flex;
+  gap: 20px;
+  font-family: "Caveat", sans-serif;
+  font-size: 16px;
+  line-height: 29px;
+  padding: 0 5px 0 5px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  max-width: 160px;
 `;

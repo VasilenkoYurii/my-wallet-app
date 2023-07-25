@@ -1,12 +1,79 @@
 import logo from "../../assets/fox.png";
-import { HeaderStyled, Logo, ConnectButton, Container } from "./Header.styled";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ethers } from "ethers";
+import { JsonRpcSigner, Web3Provider } from "@ethersproject/providers";
+import { setAddress, setBalance } from "../../redux/walletSlice";
+import { selectAddress, selectBalance } from "../../redux/selectors";
+import { formatAddress } from "../../helper/formatAddress";
+import {
+  HeaderStyled,
+  Logo,
+  ConnectButton,
+  Container,
+  ConnectedBox,
+} from "./Header.styled";
 
-export const Header = () => {
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+
+interface Props {
+  signer?: JsonRpcSigner;
+  setSigner: Function;
+}
+
+export const Header = ({ signer, setSigner }: Props) => {
+  const dispatch = useDispatch();
+  const balance: string = useSelector(selectBalance);
+  const address: string = useSelector(selectAddress);
+
+  const connectWallet = async () => {
+    try {
+      const provider = new Web3Provider(window.ethereum);
+      console.log("Ethereum provider detected!");
+      const { chainId } = await provider.getNetwork();
+      if (chainId !== 5) {
+        throw new Error("Change network to Goerli");
+      }
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+
+      setSigner(signer);
+    } catch (err) {
+      console.error("Error connecting wallet:", err);
+    }
+  };
+  useEffect(() => {
+    const getBalance = async () => {
+      if (!signer) return;
+      const balance = await signer.getBalance();
+      const formattedBalance = parseFloat(
+        ethers.formatEther(balance.toString())
+      ).toFixed(3);
+      const address = await signer.getAddress();
+      dispatch(setAddress(address));
+      dispatch(setBalance(formattedBalance));
+      console.log("Balance: ", formattedBalance);
+      console.log("Address: " + address);
+    };
+    getBalance();
+  }, [signer, dispatch]);
+
   return (
     <HeaderStyled>
       <Container>
         <Logo src={logo} alt="logo" />
-        <ConnectButton>Connect wallet</ConnectButton>
+        {balance !== "" && address !== "" ? (
+          <ConnectedBox>
+            <p>{balance}</p>
+            <p>{formatAddress(address)}</p>
+          </ConnectedBox>
+        ) : (
+          <ConnectButton onClick={connectWallet}>Connect wallet</ConnectButton>
+        )}
       </Container>
     </HeaderStyled>
   );

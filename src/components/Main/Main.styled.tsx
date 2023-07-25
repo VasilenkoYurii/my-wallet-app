@@ -7,6 +7,8 @@ export const MainStyled = styled.main`
 
   display: flex;
   justify-content: center;
+
+  margin-bottom: 50px;
 `;
 
 export const Container = styled.div`

@@ -72,7 +72,9 @@ export const Button = styled.button`
   box-sizing: border-box;
   color: #0f1111;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "Caveat", sans-serif;
   font-size: 20px;
   line-height: 29px;
