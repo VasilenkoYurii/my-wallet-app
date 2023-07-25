@@ -33,7 +33,7 @@ export const Header = ({ signer, setSigner }: Props) => {
   const connectWallet = async () => {
     try {
       const provider = new Web3Provider(window.ethereum);
-      console.log("Ethereum provider detected!");
+      // console.log("Ethereum provider detected!");
       const { chainId } = await provider.getNetwork();
       if (chainId !== 5) {
         throw new Error("Change network to Goerli");
@@ -56,8 +56,8 @@ export const Header = ({ signer, setSigner }: Props) => {
       const address = await signer.getAddress();
       dispatch(setAddress(address));
       dispatch(setBalance(formattedBalance));
-      console.log("Balance: ", formattedBalance);
-      console.log("Address: " + address);
+      // console.log("Balance: ", formattedBalance);
+      // console.log("Address: " + address);
     };
     getBalance();
   }, [signer, dispatch]);

@@ -60,7 +60,6 @@ export const onSending = async (
     });
     toast.success("We are attempting a transaction, please wait.");
     const receipt = await tx.wait();
-    console.log(receipt);
     toast.success("Transaction sent successfully!");
     const newBalance = parseFloat(
       (Number(balance) - Number(quantity)).toString()

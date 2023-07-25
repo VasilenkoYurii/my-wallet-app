@@ -38,7 +38,7 @@ export const SendingForm = ({ signer }: Props) => {
       setWallet("");
       setQuantity("");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
