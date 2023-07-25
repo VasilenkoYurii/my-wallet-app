@@ -59,7 +59,9 @@ export const onSending = async (
       value: amountInWei,
     });
     toast.success("We are attempting a transaction, please wait.");
-    const receipt = await tx.wait();
+
+    await tx.wait();
+
     toast.success("Transaction sent successfully!");
     const newBalance = parseFloat(
       (Number(balance) - Number(quantity)).toString()

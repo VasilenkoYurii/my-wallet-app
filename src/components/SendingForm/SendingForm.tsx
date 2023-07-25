@@ -68,7 +68,7 @@ export const SendingForm = ({ signer }: Props) => {
           />
         </Label>
 
-        <Button type="submit">
+        <Button type="submit" disabled={loading} data-loading={loading}>
           {loading ? (
             <ThreeDots
               height="30"

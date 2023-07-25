@@ -56,6 +56,7 @@ export const Input = styled(Field)`
   font-size: 18px;
   height: 30px;
 
+  color: #fff;
   outline: none;
   border: none;
   border-bottom: 1px solid #fff;
@@ -71,7 +72,9 @@ export const Button = styled.button`
   box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
   box-sizing: border-box;
   color: #0f1111;
-  cursor: pointer;
+  cursor: ${({ "data-loading": loading }: any) =>
+    loading ? "auto" : "pointer"};
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,6 +91,9 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #fff;
-    box-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff;
+    box-shadow: ${({ "data-loading": loading }: any) =>
+      loading
+        ? "rgba(213, 217, 217, 0.5) 0 2px 5px 0"
+        : "0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff"};
   }
 `;
